@@ -1,10 +1,11 @@
-import "./util/dotenv";
+import "./utils/dotenv";
 import express from "express";
 import cors from "cors";
-import { welcomeRouter } from "./module/welcome/welcomeRouter";
+
 import { notFoundHandler } from "./server/notFoundHandler";
 import { errorHandler } from "./server/errorHandler";
 import { PORT, SERVER_ON } from "./server/consts";
+import { welcomeRouter } from "./modules/welcome/welcomeRouter";
 
 // server
 
