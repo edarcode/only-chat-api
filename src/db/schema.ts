@@ -1,10 +1,5 @@
 import { sql } from "drizzle-orm";
-import {
-  integer,
-  primaryKey,
-  sqliteTable,
-  text,
-} from "drizzle-orm/sqlite-core";
+import { primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const ROLE = {
   chief: "CHIEF",
@@ -22,9 +17,7 @@ export const usersTable = sqliteTable("users", {
   password: text("password").notNull(),
   img: text("img"),
   createdAt: text("created_at").default(sql`(CURRENT_TIMESTAMP)`),
-  updateAt: integer("updated_at", { mode: "timestamp" }).$onUpdate(
-    () => new Date()
-  ),
+  updateAt: text("updated_at").$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
 });
 
 export const followsTable = sqliteTable(
