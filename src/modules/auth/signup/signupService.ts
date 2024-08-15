@@ -4,17 +4,14 @@ import { sendMailToVerifySignupService } from "./sendMailToVerifySignupService";
 import { z } from "zod";
 import { signupSchema } from "./signupSchema";
 import { db } from "../../../db/db";
-import { usersTable } from "../../../db/schema";
-import { eq } from "drizzle-orm";
 import { JWT } from "../../../constants/jwt";
 import bcrypt from "bcrypt";
 import { BCRYPT } from "../../../constants/bcrypt";
 
+type Signup = z.infer<typeof signupSchema>;
+
 export const signupService = async (signup: Signup) => {
-  const user = await db.query.usersTable.findFirst({
-    where: eq(usersTable.email, signup.email),
-  });
-  if (user) throw new EdarErr(400, "Email not available");
+  await checkSignup(signup);
 
   const newSignup = { ...signup };
   const passHashed = await bcrypt.hash(newSignup.password, BCRYPT.salt);
@@ -28,4 +25,14 @@ export const signupService = async (signup: Signup) => {
   await sendMailToVerifySignupService(newSignup.email, link);
 };
 
-type Signup = z.infer<typeof signupSchema>;
+const checkSignup = async (signup: Signup) => {
+  const user = await db.query.usersTable.findFirst({
+    where: (user, { or, eq }) => {
+      return or(
+        eq(user.email, signup.email),
+        eq(user.username, signup.username)
+      );
+    },
+  });
+  if (user) throw new EdarErr(400, "Email or Username not available");
+};
