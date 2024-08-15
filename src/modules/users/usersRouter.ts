@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { chiefRouter } from "./chief/chiefRouter";
+import { clientRouter } from "./client/clientRouter";
 
 export const usersRouter = Router();
 
-usersRouter.use("/chief", chiefRouter);
+usersRouter.use("/chief", () => {});
 usersRouter.use("/admin", () => {});
-usersRouter.use("/client", () => {});
+usersRouter.use("/client", clientRouter);
