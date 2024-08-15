@@ -7,20 +7,25 @@ import { db } from "../../../db/db";
 import { usersTable } from "../../../db/schema";
 import { eq } from "drizzle-orm";
 import { JWT } from "../../../constants/jwt";
+import bcrypt from "bcrypt";
+import { BCRYPT } from "../../../constants/bcrypt";
 
-export const signupService = async (params: Params) => {
+export const signupService = async (signup: Signup) => {
   const user = await db.query.usersTable.findFirst({
-    where: eq(usersTable.email, params.email),
+    where: eq(usersTable.email, signup.email),
   });
-
   if (user) throw new EdarErr(400, "Email not available");
 
-  const token = jwt.sign(params, JWT.secret as string, {
+  const newSignup = { ...signup };
+  const passHashed = await bcrypt.hash(newSignup.password, BCRYPT.salt);
+  newSignup.password = passHashed;
+
+  const token = jwt.sign(newSignup, JWT.secret as string, {
     expiresIn: JWT.expiresInSignup,
   });
 
   const link = `${process.env.API_URL}/auth/verify-signup/${token}`;
-  await sendMailToVerifySignupService(params.email, link);
+  await sendMailToVerifySignupService(newSignup.email, link);
 };
 
-type Params = z.infer<typeof signupSchema>;
+type Signup = z.infer<typeof signupSchema>;
