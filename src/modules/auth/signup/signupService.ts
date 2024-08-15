@@ -19,7 +19,7 @@ export const signupService = async (params: Params) => {
     expiresIn: JWT.expiresInSignup,
   });
 
-  const link = `${process.env.API_URL}/user/auth/verify-signup/${token}`;
+  const link = `${process.env.API_URL}/auth/verify-signup/${token}`;
   await sendMailToVerifySignupService(params.email, link);
 };
 
