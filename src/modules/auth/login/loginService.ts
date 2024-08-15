@@ -1,19 +1,18 @@
 import { z } from "zod";
-import { usersTable } from "../../../db/schema";
 import { loginSchema } from "./loginSchema";
 import { db } from "../../../db/db";
-import { eq } from "drizzle-orm";
 import { EdarErr } from "../../../error/EdarErr";
 import jwt from "jsonwebtoken";
 import { JWT } from "../../../constants/jwt";
+import bcrypt from "bcrypt";
 
-export const loginService = async (params: Params) => {
+export const loginService = async (login: Login) => {
   const user = await db.query.usersTable.findFirst({
-    where: eq(usersTable.email, params.email),
+    where: (users, { eq }) => eq(users.email, login.email),
   });
   if (!user) throw new EdarErr(401, "Invalid login");
 
-  const isLogged = user.password === params.password;
+  const isLogged = await bcrypt.compare(login.password, user.password);
   if (!isLogged) throw new EdarErr(401, "Invalid login");
 
   const token = jwt.sign(
@@ -30,7 +29,7 @@ export const loginService = async (params: Params) => {
   return token;
 };
 
-type Params = z.infer<typeof loginSchema>;
+type Login = z.infer<typeof loginSchema>;
 
 export type UserInfoToken = {
   readonly id: string;
