@@ -12,5 +12,8 @@ npx drizzle-kit generate
 # Sincroniza la migración con la db
 npx drizzle-kit migrate
 
+# 
+npx drizzle-kit studio
+
 # Envia los cambios del schema directo a la db
 # npx drizzle-kit push

@@ -8,7 +8,9 @@ export const ROLE = {
 } as const;
 
 export const usersTable = sqliteTable("users", {
-  id: text("id", { length: 36 }).primaryKey().default(crypto.randomUUID()),
+  id: text("id", { length: 36 })
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
   role: text("role", { enum: [ROLE.chief, ROLE.admin, ROLE.client] }).default(
     ROLE.client
   ),
