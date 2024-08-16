@@ -1,12 +1,10 @@
-# edarcode-api
+# only-chat-api
 
 ## Requisitos
 
 Configurar las variables de entorno, note el **example.env**.
 
-## Rutas
-
-Tener en cuenta los sgts formatos:
+## Formatos
 
 - **username:** 3 y 15 caráteres, sin carácteres especiales, no empezar ni terminar con espacio.
 
