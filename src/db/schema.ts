@@ -50,7 +50,7 @@ export const messagesTable = sqliteTable(
     issuerId: text("issuer_id")
       .notNull()
       .references(() => usersTable.id, { onDelete: "cascade" }),
-    receptorId: text("following_id")
+    receptorId: text("receptor_id")
       .notNull()
       .references(() => usersTable.id, { onDelete: "cascade" }),
     createdAt: text("created_at")
