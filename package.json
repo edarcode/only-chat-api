@@ -8,7 +8,8 @@
     "build": "tsc",
     "start": "node build/index.js",
     "migrate": "sh src/db/migrate.sh",
-    "seed": "ts-node src/db/seed.ts"
+    "seed": "ts-node src/db/seed.ts",
+    "studio": "sh src/db/studio.sh"
   },
   "keywords": [],
   "author": "edarcode",
