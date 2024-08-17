@@ -7,7 +7,7 @@ export const ROLE = {
   admin: "ADMIN",
 } as const;
 
-export const usersTable = sqliteTable("users", {
+export const users = sqliteTable("users", {
   id: text("id", { length: 36 })
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
@@ -22,15 +22,15 @@ export const usersTable = sqliteTable("users", {
   updateAt: text("updated_at").$onUpdate(() => sql`(CURRENT_TIMESTAMP)`),
 });
 
-export const followsTable = sqliteTable(
+export const follows = sqliteTable(
   "follows",
   {
     followerId: text("follower_id")
       .notNull()
-      .references(() => usersTable.id, { onDelete: "cascade" }),
+      .references(() => users.id, { onDelete: "cascade" }),
     followingId: text("following_id")
       .notNull()
-      .references(() => usersTable.id, { onDelete: "cascade" }),
+      .references(() => users.id, { onDelete: "cascade" }),
     createdAt: text("created_at")
       .default(sql`(CURRENT_TIMESTAMP)`)
       .notNull(),
@@ -44,15 +44,15 @@ export const followsTable = sqliteTable(
   }
 );
 
-export const messagesTable = sqliteTable(
+export const messages = sqliteTable(
   "messages",
   {
     issuerId: text("issuer_id")
       .notNull()
-      .references(() => usersTable.id, { onDelete: "cascade" }),
+      .references(() => users.id, { onDelete: "cascade" }),
     receptorId: text("receptor_id")
       .notNull()
-      .references(() => usersTable.id, { onDelete: "cascade" }),
+      .references(() => users.id, { onDelete: "cascade" }),
     createdAt: text("created_at")
       .default(sql`(CURRENT_TIMESTAMP)`)
       .notNull(),
@@ -71,13 +71,13 @@ export const messagesTable = sqliteTable(
   }
 );
 
-export type InsertUser = typeof usersTable.$inferInsert;
-export type SelectUser = typeof usersTable.$inferSelect;
+export type InsertUsers = typeof users.$inferInsert;
+export type SelectUsers = typeof users.$inferSelect;
 
-export type InsertContacts = typeof followsTable.$inferInsert;
-export type SelectContacts = typeof followsTable.$inferSelect;
+export type InsertFollows = typeof follows.$inferInsert;
+export type SelectFollows = typeof follows.$inferSelect;
 
-export type InsertMessages = typeof messagesTable.$inferInsert;
-export type SelectMessages = typeof messagesTable.$inferSelect;
+export type InsertMessages = typeof messages.$inferInsert;
+export type SelectMessages = typeof messages.$inferSelect;
 
 export type Role = (typeof ROLE)[keyof typeof ROLE];

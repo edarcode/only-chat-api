@@ -1,6 +1,6 @@
 import { and, eq } from "drizzle-orm";
 import { db } from "../../../db/db";
-import { messagesTable } from "../../../db/schema";
+import { messages } from "../../../db/schema";
 import { Uuid } from "../../../types";
 import { EdarErr } from "../../../error/EdarErr";
 
@@ -10,12 +10,12 @@ export const removeMsgService = async (
   createdAt: string
 ) => {
   const result = await db
-    .delete(messagesTable)
+    .delete(messages)
     .where(
       and(
-        eq(messagesTable.issuerId, issuerId),
-        eq(messagesTable.receptorId, receptorId),
-        eq(messagesTable.createdAt, createdAt)
+        eq(messages.issuerId, issuerId),
+        eq(messages.receptorId, receptorId),
+        eq(messages.createdAt, createdAt)
       )
     )
     .execute();

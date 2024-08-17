@@ -1,14 +1,20 @@
+import { eq } from "drizzle-orm";
 import { db } from "../../../db/db";
-import { EdarErr } from "../../../error/EdarErr";
+import { users } from "../../../db/schema";
 import { Uuid } from "../../../types";
 
 export const getAccountService = async (id: Uuid) => {
-  const account = await db.query.usersTable.findFirst({
-    where: (user, { eq }) => eq(user.id, id),
-    with: true,
-  });
+  const user = await db
+    .select({
+      id: users.id,
+      username: users.username,
+      img: users.img,
+      email: users.email,
+      createdAt: users.createdAt,
+    })
+    .from(users)
+    .where(eq(users.id, id))
+    .limit(1);
 
-  if (!account) throw new EdarErr(404, "Account not found");
-
-  return account;
+  return user;
 };

@@ -1,6 +1,6 @@
 import { and, eq } from "drizzle-orm";
 import { db } from "../../../db/db";
-import { followsTable } from "../../../db/schema";
+import { follows } from "../../../db/schema";
 import { Uuid } from "../../../types";
 import { EdarErr } from "../../../error/EdarErr";
 
@@ -9,11 +9,11 @@ export const unfollowToService = async (
   followingId: Uuid
 ) => {
   const result = await db
-    .delete(followsTable)
+    .delete(follows)
     .where(
       and(
-        eq(followsTable.followerId, followerId),
-        eq(followsTable.followingId, followingId)
+        eq(follows.followerId, followerId),
+        eq(follows.followingId, followingId)
       )
     )
     .execute();

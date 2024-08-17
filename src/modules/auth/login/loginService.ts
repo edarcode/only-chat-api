@@ -8,7 +8,7 @@ import bcrypt from "bcrypt";
 import { Uuid } from "../../../types";
 
 export const loginService = async (login: Login) => {
-  const user = await db.query.usersTable.findFirst({
+  const user = await db.query.users.findFirst({
     where: (users, { eq }) => eq(users.email, login.email),
   });
   if (!user) throw new EdarErr(401, "Invalid login");

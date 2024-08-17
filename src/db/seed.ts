@@ -1,7 +1,7 @@
 import "../utils/dotenv";
 import { BCRYPT } from "../constants/bcrypt";
 import { db } from "./db";
-import { followsTable, messagesTable, ROLE, usersTable } from "./schema";
+import { follows, messages, ROLE, users } from "./schema";
 import bcrypt from "bcrypt";
 
 const TEST = {
@@ -24,20 +24,20 @@ const seedUsers = async () => {
   TEST.password = await bcrypt.hash(TEST.password, BCRYPT.salt);
   LORE.password = await bcrypt.hash(LORE.password, BCRYPT.salt);
 
-  await db.delete(usersTable).execute();
-  await db.insert(usersTable).values([TEST, LORE]);
+  await db.delete(users).execute();
+  await db.insert(users).values([TEST, LORE]);
 
   await db
-    .insert(followsTable)
+    .insert(follows)
     .values({ followerId: TEST.id, followingId: LORE.id });
 
-  await db.insert(messagesTable).values({
+  await db.insert(messages).values({
     issuerId: TEST.id,
     receptorId: LORE.id,
     text: "Hola lore, ¿Cómo estás?",
   });
 
-  await db.insert(messagesTable).values({
+  await db.insert(messages).values({
     issuerId: LORE.id,
     receptorId: TEST.id,
     text: "Bien, ¿y tú?",

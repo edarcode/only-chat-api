@@ -26,11 +26,11 @@ export const signupService = async (signup: Signup) => {
 };
 
 const checkSignup = async (signup: Signup) => {
-  const user = await db.query.usersTable.findFirst({
-    where: (user, { or, eq }) => {
+  const user = await db.query.users.findFirst({
+    where: (users, { or, eq }) => {
       return or(
-        eq(user.email, signup.email),
-        eq(user.username, signup.username)
+        eq(users.email, signup.email),
+        eq(users.username, signup.username)
       );
     },
   });
