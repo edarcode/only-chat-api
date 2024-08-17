@@ -56,6 +56,7 @@ export const messagesTable = sqliteTable(
     createdAt: text("created_at")
       .default(sql`(CURRENT_TIMESTAMP)`)
       .notNull(),
+    text: text("text").notNull(),
   },
   (messagesTable) => {
     return {

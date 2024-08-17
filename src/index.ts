@@ -8,6 +8,7 @@ import { welcomeRouter } from "./modules/welcome/welcomeRouter";
 import { authRouter } from "./modules/auth/authRouter";
 import { usersRouter } from "./modules/users/usersRouter";
 import { followsRouter } from "./modules/follows/followsRouter";
+import { messageRouter } from "./modules/messages/messageRouter";
 
 // server
 
@@ -24,6 +25,7 @@ server.use("/", welcomeRouter);
 server.use("/auth", authRouter);
 server.use("/users", usersRouter);
 server.use("/follows", followsRouter);
+server.use("/msg", messageRouter);
 
 // handlers
 
