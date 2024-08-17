@@ -1,7 +1,7 @@
 import "../utils/dotenv";
 import { BCRYPT } from "../constants/bcrypt";
 import { db } from "./db";
-import { followsTable, ROLE, usersTable } from "./schema";
+import { followsTable, messagesTable, ROLE, usersTable } from "./schema";
 import bcrypt from "bcrypt";
 
 const TEST = {
@@ -30,6 +30,18 @@ const seedUsers = async () => {
   await db
     .insert(followsTable)
     .values({ followerId: TEST.id, followingId: LORE.id });
+
+  await db.insert(messagesTable).values({
+    issuerId: TEST.id,
+    receptorId: LORE.id,
+    text: "Hola lore, ¿Cómo estás?",
+  });
+
+  await db.insert(messagesTable).values({
+    issuerId: LORE.id,
+    receptorId: TEST.id,
+    text: "Bien, ¿y tú?",
+  });
 };
 
 seedUsers().catch(console.error);
