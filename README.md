@@ -70,13 +70,28 @@ Configurar las variables de entorno, note el **example.env**.
   Registra si un usuario **A** sigue a otro **B**.
 
   - **token:**
-  - **followerId:** Emisor tomado del **id** asociado al **token**.
-  - **followingId:** Receptor tomado del **id** pasado por **params**.
+  - **followerId:** Seguidor tomado del **id** asociado al **token**.
+  - **followingId:** Seguido tomado del **id** pasado por **params**.
 
 - DELETE http://localhost:3000/follows/unfollow-to/:id
 
   Elimina el seguimiento de un usuario **A** a otro **B**.
 
   - **token:**
-  - **followerId:** Emisor tomado del **id** asociado al **token**.
-  - **followingId:** Receptor tomado del **id** pasado por **params**.
+  - **followerId:** Seguidor tomado del **id** asociado al **token**.
+  - **followingId:** Seguido tomado del **id** pasado por **params**.
+
+- POST http://localhost:3000/msg/save-msg/:id
+
+  Guarda un msg enviado del usuario **A** a otro **B**.
+
+  - **token:**
+  - **issuerId:** Emisor tomado del **id** asociado al **token**.
+  - **receptorId:** Receptor tomado del **id** pasado por **params**.
+
+    ```
+    BODY
+    {
+      "text": "Hola, ¿cómo estás?"
+    }
+    ```
