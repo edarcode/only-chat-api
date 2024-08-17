@@ -112,3 +112,11 @@ Configurar las variables de entorno, note el **example.env**.
     "createdAt" : "2024-08-06 19:22:03.98"
   }
   ```
+
+- GET http://localhost:3000/messages/get-chat/:id
+
+  Obtiene el chat de un usuario **A** con otro **B**.
+
+  - **token:**
+  - **issuerId:** Tomado del **id** asociado al **token**.
+  - **followingId:** Tomado del **id** pasado por **params**.
