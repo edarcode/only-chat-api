@@ -6,8 +6,8 @@ import { searchUserSchema } from "./searchUserSchema";
 
 export const searchUserController: Controller = async (_req, res, next) => {
   try {
-    const query = res.locals.query as Query;
     const tokenInfo = res.locals.tokenInfo as UserInfoToken;
+    const query = res.locals.query as Query;
     const users = await searchUserService(tokenInfo.id, query);
     res.json(users);
   } catch (error) {
