@@ -13,7 +13,6 @@ export const saveMsgController: Controller = async (req, res, next) => {
     await saveMsgService(issuerId, receptorId, body);
     res.status(201).json({ msg: "Message saved successfully" });
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };

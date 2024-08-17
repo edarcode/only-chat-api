@@ -24,7 +24,7 @@ Configurar las variables de entorno, note el **example.env**.
 
 - GET http://localhost:3000
 
-### Módulo Auth
+### Módulo auth
 
 - POST http://localhost:3000/auth/signup
 
@@ -62,3 +62,21 @@ Configurar las variables de entorno, note el **example.env**.
     "password": "123456"
   }
   ```
+
+### Módulo follows
+
+- POST http://localhost:3000/follows/follow-to/:id
+
+  Registra si un usuario **A** sigue a otro **B**.
+
+  - **token:**
+  - **followerId:** Emisor tomado del **id** asociado al **token**.
+  - **followingId:** Receptor tomado del **id** pasado por **params**.
+
+- DELETE http://localhost:3000/follows/unfollow-to/:id
+
+  Elimina el seguimiento de un usuario **A** a otro **B**.
+
+  - **token:**
+  - **followerId:** Emisor tomado del **id** asociado al **token**.
+  - **followingId:** Receptor tomado del **id** pasado por **params**.
