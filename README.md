@@ -81,6 +81,8 @@ Configurar las variables de entorno, note el **example.env**.
   - **followerId:** Seguidor tomado del **id** asociado al **token**.
   - **followingId:** Seguido tomado del **id** pasado por **params**.
 
+### Módulo messages
+
 - POST http://localhost:3000/msg/save-msg/:id
 
   Guarda un msg enviado del usuario **A** a otro **B**.
@@ -89,9 +91,24 @@ Configurar las variables de entorno, note el **example.env**.
   - **issuerId:** Emisor tomado del **id** asociado al **token**.
   - **receptorId:** Receptor tomado del **id** pasado por **params**.
 
-    ```
-    BODY
-    {
-      "text": "Hola, ¿cómo estás?"
-    }
-    ```
+  ```
+  BODY
+  {
+    "text": "Hola, ¿cómo estás?"
+  }
+  ```
+
+- DELETE http://localhost:3000/msg/remove-msg
+
+  Elimina un msg enviado del usuario **A** a otro **B**.
+
+  - **token:**
+  - **issuerId:** Emisor tomado del **id** asociado al **token**.
+
+  ```
+  BODY
+  {
+    "receptorId" : "2ba0fdf2-e11c-4894-9832-9afd362606f8",
+    "createdAt" : "2024-08-06 19:22:03.98"
+  }
+  ```

@@ -2,7 +2,7 @@ import { Router } from "express";
 import { saveMsgRouter } from "./save-msg/saveMsgRouter";
 import { removeMsgRouter } from "./remove-msg/removeMsgRouter";
 
-export const messageRouter = Router();
+export const messagesRouter = Router();
 
-messageRouter.use("/save-msg", saveMsgRouter);
-messageRouter.use("/remove-msg", removeMsgRouter);
+messagesRouter.use("/save-msg", saveMsgRouter);
+messagesRouter.use("/remove-msg", removeMsgRouter);
