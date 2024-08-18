@@ -20,16 +20,26 @@ const LORE = {
   role: ROLE.client,
 };
 
+const MYKE = {
+  id: crypto.randomUUID(),
+  username: "myke",
+  email: "myke@gmail.com",
+  password: "123456",
+  role: ROLE.client,
+};
+
 const seedUsers = async () => {
   TEST.password = await bcrypt.hash(TEST.password, BCRYPT.salt);
   LORE.password = await bcrypt.hash(LORE.password, BCRYPT.salt);
 
   await db.delete(users).execute();
-  await db.insert(users).values([TEST, LORE]);
+  await db.insert(users).values([TEST, LORE, MYKE]);
 
-  await db
-    .insert(follows)
-    .values({ followerId: TEST.id, followingId: LORE.id });
+  await db.insert(follows).values([
+    { followerId: TEST.id, followingId: LORE.id },
+    { followerId: TEST.id, followingId: MYKE.id },
+    { followerId: LORE.id, followingId: TEST.id },
+  ]);
 
   await db.insert(messages).values({
     issuerId: TEST.id,
