@@ -6,7 +6,12 @@ import { EdarErr } from "../../../error/EdarErr";
 
 export const getAccountService = async (id: Uuid) => {
   const [user] = await db
-    .select({ id: users.id, username: users.username })
+    .select({
+      id: users.id,
+      username: users.username,
+      createdAt: users.createdAt,
+      img: users.img,
+    })
     .from(users)
     .where(eq(users.id, id))
     .limit(1);

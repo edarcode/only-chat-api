@@ -120,3 +120,9 @@ Configurar las variables de entorno, note el **example.env**.
   - **token:**
   - **issuerId:** Tomado del **id** asociado al **token**.
   - **followingId:** Tomado del **id** pasado por **params**.
+
+- GET http://localhost:3000/users/get-account
+
+  Obtiene la cuenta del usuario.
+
+  - **token:**
