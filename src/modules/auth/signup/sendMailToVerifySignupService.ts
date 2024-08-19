@@ -5,7 +5,7 @@ export const sendMailToVerifySignupService = async (
   link: string
 ) => {
   return await transporter.sendMail({
-    from: process.env.TEST_GMAIL,
+    from: process.env.NODEMAILER_GMAIL,
     to,
     subject: "Verify email to signup in only-chat 💪",
     html: `<a href=${link} style="color: royalblue">Click me to verify signup</a>`,

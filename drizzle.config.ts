@@ -6,7 +6,7 @@ export default defineConfig({
   dialect: "sqlite",
   driver: "turso",
   dbCredentials: {
-    url: "file:./src/db/user-hub.db",
+    url: "file:./src/db/onlychat.db",
     //authToken: process.env.TURSO_AUTH_TOKEN!,
   },
 });

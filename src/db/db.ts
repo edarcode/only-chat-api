@@ -4,7 +4,7 @@ import * as schema from "./schema";
 import * as relations from "./relations";
 
 const client = createClient({
-  url: "file:./src/db/user-hub.db",
+  url: "file:./src/db/onlychat.db",
   // url: process.env.TURSO_CONNECTION_URL!,
   // authToken: process.env.TURSO_AUTH_TOKEN!,
 });
