@@ -31,6 +31,7 @@ const MYKE = {
 const seedUsers = async () => {
   TEST.password = await bcrypt.hash(TEST.password, BCRYPT.salt);
   LORE.password = await bcrypt.hash(LORE.password, BCRYPT.salt);
+  MYKE.password = await bcrypt.hash(MYKE.password, BCRYPT.salt);
 
   await db.delete(users).execute();
   await db.insert(users).values([TEST, LORE, MYKE]);

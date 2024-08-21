@@ -9,6 +9,8 @@ import { authRouter } from "./modules/auth/authRouter";
 import { usersRouter } from "./modules/users/usersRouter";
 import { followsRouter } from "./modules/follows/followsRouter";
 import { messagesRouter } from "./modules/messages/messagesRouter";
+import { Server } from "socket.io";
+import http from "http";
 
 // server
 
@@ -32,6 +34,26 @@ server.use("/messages", messagesRouter);
 server.use(notFoundHandler);
 server.use(errorHandler);
 
+// socket.io
+
+const httpServer = http.createServer(server);
+const io = new Server(httpServer, { cors: { origin: process.env.CLIENT_URL } });
+
+io.on("connection", (socket) => {
+  console.log("clint connected", socket.id);
+
+  socket.on("joinRoom", ({ issuerId, receptorId }) => {
+    const room = [issuerId, receptorId].sort().join("-");
+    socket.join(room);
+  });
+
+  socket.on("message", (msg) => {
+    const { issuerId, receptorId } = msg;
+    const room = [issuerId, receptorId].sort().join("-");
+    socket.to(room).emit("message", msg);
+  });
+});
+
 // server-up
 
-server.listen(PORT, () => console.log(SERVER_ON));
+httpServer.listen(PORT, () => console.log(SERVER_ON));
